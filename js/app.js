@@ -63,10 +63,29 @@ function insertTableEmployees(xml) {
             var att = employees[i].childNodes[j].childNodes[0].nodeValue;
             var td = document.createElement("td");
             td.appendChild(document.createTextNode(att));        
-            tr.appendChild(td);    
+            tr.appendChild(td);
         }
         var del = document.createElement("button");
-        tr.appendChild(td);
+        del.className = "btn btn-danger";
+        del.id = employees[i].childNodes[1].childNodes[0].nodeValue;
+        del.textContent = "Delete";
+        del.addEventListener('click', function(e) {
+            doDelete(this.id, this.parentNode);
+        });
+        tr.appendChild(del);
         document.getElementById("employees").appendChild(tr);
     }   
+}
+
+function doDelete(idEmp, parentNode) {
+    var xhrReq = new XMLHttpRequest();
+    xhrReq.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+            if(this.responseText == "OK") {
+                parentNode.remove();
+            }
+        }
+    };
+    xhrReq.open('GET','./cgi-bin/deleteEmp.pl?idEmp='+idEmp,true);
+    xhrReq.send();
 }

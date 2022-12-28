@@ -39,6 +39,7 @@ if($sent->execute($dni,$firstN,$lastN,$salary)) {
                   "</employee>\n";
     }
     $xml = $xml . "</employees>";
+
     print $xml;
 }else {
     print       "<?xml version='1.0' encoding='UTF-8'?>\n".
@@ -46,3 +47,6 @@ if($sent->execute($dni,$firstN,$lastN,$salary)) {
                 "       <status>NO</status>".
                 "   </employees>";
 }
+
+$sent->finish;
+$dbh->disconnect;
