@@ -22,7 +22,27 @@ my $salary = $q->param('salary');
 print $q->header('text/XML');
 
 if($sent->execute($dni,$firstN,$lastN,$salary)) {
-    print "OK";
+    $sent = $dbh->prepare("SELECT idEmp, firstName, lastName, dni, salario FROM empleados WHERE dni=".$dni);
+    $sent->execute();
+
+    my $xml =   "<?xml version='1.0' encoding='UTF-8'?>\n".
+                "   <employees>\n".
+                "       <status>OK</status>\n";
+
+    while(my @row = $sent->fetchrow_array) {
+        $xml = $xml . "<employee>\n".
+                  "     <idEmp>$row[0]</idEmp>\n".
+                  "     <firstName>$row[1]</firstName>\n".
+                  "     <lastName>$row[2]</lastName>\n".
+                  "     <dni>$row[3]</dni>\n".
+                  "     <salary>$row[4]</salary>\n".
+                  "</employee>\n";
+    }
+    $xml = $xml . "</employees>";
+    print $xml;
 }else {
-    print "NO";
+    print       "<?xml version='1.0' encoding='UTF-8'?>\n".
+                "   <employees>\n".
+                "       <status>NO</status>".
+                "   </employees>";
 }

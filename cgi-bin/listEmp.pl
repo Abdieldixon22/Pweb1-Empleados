@@ -12,7 +12,7 @@ my $password = 'pweb1';
 my $dsn = "DBI:mysql:database=pweb1;host=192.168.0.16";
 my $dbh = DBI->connect($dsn, $user, $password) or die("No se pudo conectar!");
 
-my $sent = $dbh->prepare("SELECT firstName, lastName, dni, salario FROM empleados");
+my $sent = $dbh->prepare("SELECT idEmp, firstName, lastName, dni, salario FROM empleados");
 
 $sent->execute();
 
@@ -22,11 +22,13 @@ my $xml =   "<?xml version='1.0' encoding='UTF-8'?>\n".
             "   <employees>\n";
 
 while(my @row = $sent->fetchrow_array) {
-    $xml = $xml . "<employee>\n".
-                  "     <firstName>$row[0]</firstName>\n".
-                  "     <lastName>$row[1]</lastName>\n".
-                  "     <dni>$row[2]</dni>\n".
-                  "     <salary>$row[3]</salary>\n".
+    $xml = $xml . "<status>OK</status>\n".
+                  "<employee>\n".
+                  "     <idEmp>$row[0]</idEmp>\n".
+                  "     <firstName>$row[1]</firstName>\n".
+                  "     <lastName>$row[2]</lastName>\n".
+                  "     <dni>$row[3]</dni>\n".
+                  "     <salary>$row[4]</salary>\n".
                   "</employee>\n";
 }
 
