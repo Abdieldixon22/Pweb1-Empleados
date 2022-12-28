@@ -54,6 +54,10 @@ function loadEmployees() {
     xhrReq.send();
 }
 
+/*
+ * Esta función recibe uno o más empleados en formato XML
+ * para ser insertados como fila en la tabla "employees"
+*/
 function insertTableEmployees(xml) {
     var employees = xml.getElementsByTagName("employee");
     for (var i = 0; i < employees.length; i++) {  
@@ -77,6 +81,11 @@ function insertTableEmployees(xml) {
     }   
 }
 
+/*
+ * Función que recibe un id de empleado y un nodo padre
+ * de tabla(fila), este último es removido una vez la 
+ * respuesta del deleteEmp.pl sea correcta
+*/
 function doDelete(idEmp, parentNode) {
     var xhrReq = new XMLHttpRequest();
     xhrReq.onreadystatechange = function() {
