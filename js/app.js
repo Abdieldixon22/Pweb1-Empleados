@@ -34,5 +34,16 @@ function insertResponse(text) {
 }
 
 function loadEmployees() {
-    
+    var xhrReq = new XMLHttpRequest();
+    xhrReq.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+            insertTableEmployees(xhrReq.responseXML);
+        }
+    };
+    xhrReq.open('GET','./cgi-bin/listEmp.pl',true);
+    xhrReq.send();
+}
+
+function insertTableEmployees(xml) {
+    console.log(xml);
 }
