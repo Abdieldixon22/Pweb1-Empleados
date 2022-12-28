@@ -26,8 +26,13 @@ function doInsert() {
 
 function insertResponse(text) {
     if(text == 'OK') {
-        
+        loadEmployees();
+        document.getElementById("emp-form").reset();
     }else {
-
+        alert('Error al momento de insertar');
     }
+}
+
+function loadEmployees() {
+    
 }
