@@ -9,7 +9,7 @@ my $q = CGI->new();
 
 my $user = 'alumno';
 my $password = 'pweb1';
-my $dsn = "DBI:mysql:database=pweb1;host=192.168.0.16";
+my $dsn = "DBI:mysql:database=pweb1;host=192.168.0.19";
 my $dbh = DBI->connect($dsn, $user, $password) or die("No se pudo conectar!");
 
 my $idEmp = $q->param('idEmp');

@@ -1,30 +1,4 @@
 /*
- * Función llamada cuando se ingresan los datos en el
- * formulario de empleados, se hace uso del script 
- * register.pl para insertar datos.
-*/
-function doInsert() {
-    document.getElementById("emp-form").addEventListener('submit', function(e){
-        e.preventDefault();
-
-        var fName = document.getElementById("firstName").value;
-        var lName = document.getElementById("lastName").value;
-        var dni = document.getElementById("dni").value;
-        var salary = document.getElementById("salary").value;
-        
-        var xhrReq = new XMLHttpRequest();
-        xhrReq.onreadystatechange = function() {
-            if(this.readyState == 4 && this.status == 200){
-                insertResponse(xhrReq.responseXML);
-            }
-        };
-        xhrReq.open('GET','./cgi-bin/register.pl?dni='+dni+'&firstN='+fName+'&lastN='+lName+'&salary='+salary,true);
-        xhrReq.send();
-    });
-
-}
-
-/*
  * Esta función recibe un xml con el empleado registrado,
  * luego es insertado en la tabla para su visualización
 */
@@ -34,6 +8,7 @@ function insertResponse(xml) {
     if(status == 'OK') {
         insertTableEmployees(xml);
         document.getElementById("emp-form").reset();
+        removeSearch();
     }else {
         alert('Error al momento de insertar');
     }
@@ -107,7 +82,6 @@ function showSearchEmp(xml) {
     const aux = xml.childNodes[0].childNodes[1];
     const status = aux.childNodes[0].nodeValue;
     if(status == 'OK') {
-        console.log(xml);
         var aux1 = xml.getElementsByTagName('employee')[0];
         let temp = '';
         for(var i = 1; i < aux1.childNodes.length; i+=2) {
