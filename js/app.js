@@ -109,15 +109,12 @@ function showSearchEmp(xml) {
     if(status == 'OK') {
         console.log(xml);
         var aux1 = xml.getElementsByTagName('employee')[0];
-
-        /*
-        var idEmp = aux1.childNodes[1].childNodes[0].nodeValue;
-        var fName = aux1.childNodes[3].childNodes[0].nodeValue;
-        var lName = aux1.childNodes[5].childNodes[0].nodeValue;
-        var dni = aux1.childNodes[7].childNodes[0].nodeValue;
-        var salary = aux1.childNodes[9].childNodes[0].nodeValue;
-        */
-        
+        let temp = '';
+        for(var i = 1; i < aux1.childNodes.length; i+=2) {
+            temp += '<li>'+aux1.childNodes[i].childNodes[0].nodeValue+'</li>';
+        }
+        document.getElementById("emp-ul-result").innerHTML = temp;
+        document.getElementById("emp-result").style.display="block";
     }else {
         alert('Usuario no encontrado');
     }
