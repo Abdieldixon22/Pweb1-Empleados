@@ -98,3 +98,27 @@ function doDelete(idEmp, parentNode) {
     xhrReq.open('GET','./cgi-bin/deleteEmp.pl?idEmp='+idEmp,true);
     xhrReq.send();
 }
+
+/*
+ * Función que muestra al empleado buscado de formato XML
+ * a líneas en <ul> <li> </li> </ul>
+*/
+function showSearchEmp(xml) {
+    const aux = xml.childNodes[0].childNodes[1];
+    const status = aux.childNodes[0].nodeValue;
+    if(status == 'OK') {
+        console.log(xml);
+        var aux1 = xml.getElementsByTagName('employee')[0];
+
+        /*
+        var idEmp = aux1.childNodes[1].childNodes[0].nodeValue;
+        var fName = aux1.childNodes[3].childNodes[0].nodeValue;
+        var lName = aux1.childNodes[5].childNodes[0].nodeValue;
+        var dni = aux1.childNodes[7].childNodes[0].nodeValue;
+        var salary = aux1.childNodes[9].childNodes[0].nodeValue;
+        */
+        
+    }else {
+        alert('Usuario no encontrado');
+    }
+}

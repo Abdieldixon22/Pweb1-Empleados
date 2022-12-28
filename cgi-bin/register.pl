@@ -29,7 +29,7 @@ if($sent->execute($dni,$firstN,$lastN,$salary)) {
                 "   <employees>\n".
                 "       <status>OK</status>\n";
 
-    while(my @row = $sent->fetchrow_array) {
+    if(my @row = $sent->fetchrow_array) {
         $xml = $xml . "<employee>\n".
                   "     <idEmp>$row[0]</idEmp>\n".
                   "     <firstName>$row[1]</firstName>\n".
